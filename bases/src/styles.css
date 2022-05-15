@@ -1,0 +1,24 @@
+
+html, body
+ {
+  background-color: white;
+  margin: 20px;
+  color: #3e4144
+ }
+
+button {
+  background-color: blue;
+  border-radius: 5px;
+  border: 0px;
+  color: white;
+  cursor: pointer;
+  margin-right: 5px;
+  margin-left: 5px;
+  padding: 5px 10px;
+}
+
+.centrado {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
