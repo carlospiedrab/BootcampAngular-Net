@@ -22,3 +22,12 @@ button {
   flex-direction: row;
   justify-content: center;
 }
+
+.row {
+  display: flex;
+}
+
+.col {
+  flex-grow: 1;
+  margin-right: 10px;
+}
