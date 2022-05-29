@@ -1,36 +1,14 @@
 
 
-<h1>Listado de Clientes</h1>
+<h1>Listado de Clientes (Pagina-Inicio Component)</h1>
 
 <div class="row">
   <div class="col">
-     <app-listado-clientes [clientes]="clientes"></app-listado-clientes>
+     <app-listado-clientes></app-listado-clientes>
   </div>
 
   <div class="col">
-      <h3>Agregar</h3>
-      <hr>
-
-      <form (submit)="agregar()">
-          <input
-               type="text"
-               placeholder="Nombre"
-               name="nombre"
-               [(ngModel)] = "nuevo.nombre"
-               />
-
-          <input
-               type="number"
-               placeholder="Credito"
-               name="credito"
-               [(ngModel)]="nuevo.credito"
-               />
-
-
-          <button type="submit">
-            Agregar
-          </button>
-      </form>
+      <app-agregar-cliente></app-agregar-cliente>
   </div>
 
 </div>
