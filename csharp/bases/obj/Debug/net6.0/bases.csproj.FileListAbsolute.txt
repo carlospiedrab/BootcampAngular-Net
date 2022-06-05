@@ -1,0 +1,15 @@
+C:\bootcamp\csharp\bases\bin\Debug\net6.0\bases.exe
+C:\bootcamp\csharp\bases\bin\Debug\net6.0\bases.deps.json
+C:\bootcamp\csharp\bases\bin\Debug\net6.0\bases.runtimeconfig.json
+C:\bootcamp\csharp\bases\bin\Debug\net6.0\bases.dll
+C:\bootcamp\csharp\bases\bin\Debug\net6.0\bases.pdb
+C:\bootcamp\csharp\bases\obj\Debug\net6.0\bases.csproj.AssemblyReference.cache
+C:\bootcamp\csharp\bases\obj\Debug\net6.0\bases.GeneratedMSBuildEditorConfig.editorconfig
+C:\bootcamp\csharp\bases\obj\Debug\net6.0\bases.AssemblyInfoInputs.cache
+C:\bootcamp\csharp\bases\obj\Debug\net6.0\bases.AssemblyInfo.cs
+C:\bootcamp\csharp\bases\obj\Debug\net6.0\bases.csproj.CoreCompileInputs.cache
+C:\bootcamp\csharp\bases\obj\Debug\net6.0\bases.dll
+C:\bootcamp\csharp\bases\obj\Debug\net6.0\refint\bases.dll
+C:\bootcamp\csharp\bases\obj\Debug\net6.0\bases.pdb
+C:\bootcamp\csharp\bases\obj\Debug\net6.0\bases.genruntimeconfig.cache
+C:\bootcamp\csharp\bases\obj\Debug\net6.0\ref\bases.dll
