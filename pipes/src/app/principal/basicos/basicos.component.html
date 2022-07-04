@@ -1,0 +1,81 @@
+
+
+<h1>Pipes Básicos</h1>
+
+<div class="contenedor">
+   <div class="contenedor-item">
+        <mat-card>
+           <mat-card-title>Uppercase</mat-card-title>
+           <mat-card-subtitle>{{nombre | uppercase}}</mat-card-subtitle>
+           <mat-card-content>
+             Convertir a Mayusculas
+           </mat-card-content>
+        </mat-card>
+   </div>
+
+   <div class="contenedor-item">
+    <mat-card>
+      <mat-card-title>Lowercase</mat-card-title>
+      <mat-card-subtitle>{{apellido | lowercase}}</mat-card-subtitle>
+      <mat-card-content>
+        Convertir a Minusculas
+      </mat-card-content>
+   </mat-card>
+  </div>
+
+  <div class="contenedor-item">
+    <mat-card>
+      <mat-card-title>Titlecase</mat-card-title>
+      <mat-card-subtitle>{{nombreCompleto | titlecase}}</mat-card-subtitle>
+      <mat-card-content>
+          Convierte la Primera Letra en Mayuscula.
+      </mat-card-content>
+   </mat-card>
+  </div>
+</div>
+
+<h1>Pipes de Fechas</h1>
+<div class="contenedor">
+   <div class="contenedor-item">
+      <mat-card>
+         <mat-card-title>Fecha</mat-card-title>
+         <mat-card-subtitle>{{fecha}}</mat-card-subtitle>
+      </mat-card>
+   </div>
+
+   <div class="contenedor-item">
+    <mat-card>
+       <mat-card-title>Fecha Short</mat-card-title>
+       <mat-card-subtitle>{{fecha | date: 'short'}}</mat-card-subtitle>
+    </mat-card>
+   </div>
+
+   <div class="contenedor-item">
+    <mat-card>
+       <mat-card-title>Fecha Larga</mat-card-title>
+       <mat-card-subtitle>{{fecha | date: 'long'}}</mat-card-subtitle>
+    </mat-card>
+   </div>
+
+   <div class="contenedor-item">
+    <mat-card>
+       <mat-card-title>Fecha MMMM</mat-card-title>
+       <mat-card-subtitle>{{fecha | date: 'MMMM' | titlecase}}</mat-card-subtitle>
+    </mat-card>
+   </div>
+
+   <div class="contenedor-item">
+    <mat-card>
+       <mat-card-title>Fecha dd MMM yyyy</mat-card-title>
+       <mat-card-subtitle>{{fecha | date: 'dd MM yyyy'}}</mat-card-subtitle>
+    </mat-card>
+   </div>
+
+
+ </div>
+
+
+
+
+
+

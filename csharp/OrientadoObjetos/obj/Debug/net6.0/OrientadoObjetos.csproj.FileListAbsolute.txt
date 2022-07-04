@@ -1,0 +1,15 @@
+C:\bootcamp\csharp\OrientadoObjetos\bin\Debug\net6.0\OrientadoObjetos.exe
+C:\bootcamp\csharp\OrientadoObjetos\bin\Debug\net6.0\OrientadoObjetos.deps.json
+C:\bootcamp\csharp\OrientadoObjetos\bin\Debug\net6.0\OrientadoObjetos.runtimeconfig.json
+C:\bootcamp\csharp\OrientadoObjetos\bin\Debug\net6.0\OrientadoObjetos.dll
+C:\bootcamp\csharp\OrientadoObjetos\bin\Debug\net6.0\OrientadoObjetos.pdb
+C:\bootcamp\csharp\OrientadoObjetos\obj\Debug\net6.0\OrientadoObjetos.csproj.AssemblyReference.cache
+C:\bootcamp\csharp\OrientadoObjetos\obj\Debug\net6.0\OrientadoObjetos.GeneratedMSBuildEditorConfig.editorconfig
+C:\bootcamp\csharp\OrientadoObjetos\obj\Debug\net6.0\OrientadoObjetos.AssemblyInfoInputs.cache
+C:\bootcamp\csharp\OrientadoObjetos\obj\Debug\net6.0\OrientadoObjetos.AssemblyInfo.cs
+C:\bootcamp\csharp\OrientadoObjetos\obj\Debug\net6.0\OrientadoObjetos.csproj.CoreCompileInputs.cache
+C:\bootcamp\csharp\OrientadoObjetos\obj\Debug\net6.0\OrientadoObjetos.dll
+C:\bootcamp\csharp\OrientadoObjetos\obj\Debug\net6.0\refint\OrientadoObjetos.dll
+C:\bootcamp\csharp\OrientadoObjetos\obj\Debug\net6.0\OrientadoObjetos.pdb
+C:\bootcamp\csharp\OrientadoObjetos\obj\Debug\net6.0\OrientadoObjetos.genruntimeconfig.cache
+C:\bootcamp\csharp\OrientadoObjetos\obj\Debug\net6.0\ref\OrientadoObjetos.dll

@@ -1,0 +1,28 @@
+
+<h1>Pipes Decimales</h1>
+<div class="contenedor">
+  <div class="contenedor-item">
+      <mat-card>
+         <mat-card-title>Total Ventas  | number</mat-card-title>
+         <mat-card-subtitle>{{totalVentas | number}}</mat-card-subtitle>
+      </mat-card>
+  </div>
+  <div class="contenedor-item">
+    <mat-card>
+       <mat-card-title>Total Ventas  | currency</mat-card-title>
+       <mat-card-subtitle>{{totalVentas | currency: 'EUR'}}</mat-card-subtitle>
+    </mat-card>
+  </div>
+  <div class="contenedor-item">
+    <mat-card>
+       <mat-card-title>Porcentaje  | percent</mat-card-title>
+       <mat-card-subtitle>{{porcentajeVentas | percent}}</mat-card-subtitle>
+    </mat-card>
+</div>
+<div class="contenedor-item">
+  <mat-card>
+     <mat-card-title>Porcentaje  | percent</mat-card-title>
+     <mat-card-subtitle>{{porcentajeVentas | percent: '2.2-2'}}</mat-card-subtitle>
+  </mat-card>
+</div>
+</div>

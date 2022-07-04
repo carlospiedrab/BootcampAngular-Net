@@ -1,0 +1,21 @@
+
+<h1>I18nSelectPipe</h1>
+<div class="contenedor">
+  <div class="contenedor-item">
+    <mat-card>
+        <mat-card-content>
+           {{genero | i18nSelect: bienvenidoMapa}} {{nombre}}
+        </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+
+<h1>I18nPluralPipe</h1>
+<div class="contenedor">
+  <div class="contenedor-item">
+    <mat-card>
+        Actualmente {{usuarios.length | i18nPlural: usuariosMapa}} 
+    </mat-card>
+  </div>
+</div>
