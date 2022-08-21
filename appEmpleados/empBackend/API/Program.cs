@@ -1,3 +1,4 @@
+using API.Helpers;
 using Infraestructura.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +14,8 @@ builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
                          options.UseSqlServer(connectionString));
+
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 builder.Services.AddCors();
 

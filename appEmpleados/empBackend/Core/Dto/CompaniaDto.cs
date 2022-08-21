@@ -1,10 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Core.Entidades
+namespace Core.Dto
 {
-    public class Compania
+    public class CompaniaDto
     {
-        [Key]
         public int Id { get; set; }
         
         [Required(ErrorMessage ="El nombre de la Compania es Requerido")]
@@ -21,6 +20,5 @@ namespace Core.Entidades
 
         [MaxLength(40, ErrorMessage ="No sea mayor a 40")]
         public string Telefono2 { get; set; }
-
     }
 }
