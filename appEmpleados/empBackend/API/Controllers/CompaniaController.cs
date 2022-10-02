@@ -15,6 +15,7 @@ namespace API.Controllers
     {
 
         private ResponseDto _response;
+        private ResponsePaginadorDto _responsePaginador;
         private readonly ILogger<CompaniaController> _logger;
         private readonly IMapper _mapper;
         private readonly IUnidadTrabajo _unidadTrabajo;
@@ -26,6 +27,7 @@ namespace API.Controllers
             _mapper = mapper;
             _logger = logger;
             _response = new ResponseDto();
+            _responsePaginador = new ResponsePaginadorDto();
 
         }
 

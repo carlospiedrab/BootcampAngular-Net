@@ -1,6 +1,8 @@
+using System.Net;
 using AutoMapper;
 using Core.Dto;
 using Core.Entidades;
+using Core.Especificaciones;
 using Infraestructura.Data;
 using Infraestructura.Data.IRepositorio;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +16,7 @@ namespace API.Controllers
     {
 
         private ResponseDto _response;
+        private ResponsePaginadorDto _responsePaginador;
         private readonly ILogger<EmpleadoController> _logger;
         private readonly IMapper _mapper;
         private readonly IUnidadTrabajo _unidadTrabajo;
@@ -26,21 +29,31 @@ namespace API.Controllers
             _logger = logger;
 
             _response = new ResponseDto();
+            _responsePaginador = new ResponsePaginadorDto();
 
         }
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<EmpleadoReadDto>>> GetEmpleados()
+        public async Task<ActionResult<IEnumerable<EmpleadoReadDto>>> GetEmpleados(
+            [FromQuery] Parametros parametros
+        )
         {
             _logger.LogInformation("Listado de Empleados");
-            var lista = await _unidadTrabajo.Empleado.ObtenerTodos(incluirPropiedades: "Compania");
+            var lista = await _unidadTrabajo.Empleado.ObtenerTodosPaginado(
+                                               parametros,
+                                               incluirPropiedades: "Compania",
+                                               orderBy: e => e.OrderBy(e => e.Apellidos)
+                                                             .ThenBy(e => e.Nombres));
 
-            _response.Resultado = _mapper.Map<IEnumerable<Empleado>, IEnumerable<EmpleadoReadDto>>(lista);
+            _responsePaginador.TotalPaginas = lista.MetaData.TotalPages;
+            _responsePaginador.TotalRegistros = lista.MetaData.TotalCount;
+            _responsePaginador.PageSize = lista.MetaData.PageSize;
+            _responsePaginador.Resultado = _mapper.Map<IEnumerable<Empleado>, IEnumerable<EmpleadoReadDto>>(lista);
+            _responsePaginador.StatusCode = HttpStatusCode.OK;
+            _responsePaginador.Mensaje = "Listado de Empleados";
 
-            _response.Mensaje = "Listado de Empleados";
-
-            return Ok(_response);
+            return Ok(_responsePaginador);
         }
 
         [HttpGet("{id}", Name = "GetEmpleado")]
@@ -53,6 +66,7 @@ namespace API.Controllers
             {
                 _logger.LogError("Debe de Enviar el ID");
                 _response.Mensaje = "Debe de Enviar el ID";
+                _response.StatusCode = HttpStatusCode.BadRequest;
                 _response.IsExitoso = false;
                 return BadRequest(_response);
             }
@@ -64,11 +78,13 @@ namespace API.Controllers
                 _logger.LogError("Empleado No Existe!");
                 _response.Mensaje = "Empleado No Existe!";
                 _response.IsExitoso = false;
+                _response.StatusCode = HttpStatusCode.NotFound;
                 return NotFound(_response);
             }
 
             _response.Resultado = _mapper.Map<Empleado, EmpleadoReadDto>(emp);
             _response.Mensaje = "Datos del Empleado " + emp.Id;
+            _response.StatusCode = HttpStatusCode.OK;
             return Ok(_response);  // Status code = 200
         }
 
@@ -82,6 +98,7 @@ namespace API.Controllers
             var lista = await _unidadTrabajo.Empleado.ObtenerTodos(e => e.CompaniaId == companiaId, incluirPropiedades: "Compania");
             _response.Resultado = _mapper.Map<IEnumerable<Empleado>, IEnumerable<EmpleadoReadDto>>(lista);
             _response.IsExitoso = true;
+            _response.StatusCode = HttpStatusCode.OK;
             _response.Mensaje = "Listado de Empleados por Compania";
             return Ok(_response);
         }
@@ -97,12 +114,17 @@ namespace API.Controllers
             {
                 _response.Mensaje = "Informacion Incorrecta";
                 _response.IsExitoso = false;
+                _response.StatusCode = HttpStatusCode.BadRequest;
                 return BadRequest(_response);
             }
 
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                // return BadRequest(ModelState);
+                _response.Mensaje = "Informacion Incorrecta";
+                _response.IsExitoso = false;
+                _response.StatusCode = HttpStatusCode.BadRequest;
+                return BadRequest(_response);
             }
 
             var empleadoExiste = await _unidadTrabajo.Empleado.ObtenerPrimero(
@@ -112,15 +134,24 @@ namespace API.Controllers
 
             if (empleadoExiste != null)
             {
-                ModelState.AddModelError("NombreDuplicado", "Nombre del Empleado ya existe!");
-                return BadRequest(ModelState);
+                // ModelState.AddModelError("NombreDuplicado", "Nombre del Empleado ya existe!");
+                // return BadRequest(ModelState);
+                _response.Mensaje = "Nombre del Empleado ya existe!";
+                _response.IsExitoso = false;
+                _response.StatusCode = HttpStatusCode.BadRequest;
+
             }
 
             Empleado empleado = _mapper.Map<Empleado>(empleadoDto);
 
             await _unidadTrabajo.Empleado.Agregar(empleado);
             await _unidadTrabajo.Guardar();
-            return CreatedAtRoute("GetEmpleado", new { id = empleado.Id }, empleado); // Status Code= 201
+            _response.Mensaje = "Empleado Guardado con Exito!";
+            _response.IsExitoso = true;
+            _response.Resultado = empleado;
+            _response.StatusCode = HttpStatusCode.Created;
+
+            return CreatedAtRoute("GetEmpleado", new { id = empleado.Id }, _response); // Status Code= 201
         }
 
         [HttpPut("{id}")]
@@ -130,12 +161,20 @@ namespace API.Controllers
         {
             if (id != empleadoDto.Id)
             {
-                return BadRequest("Id del Empleado no Coincide");
+                // return BadRequest("Id del Empleado no Coincide");
+                _response.Mensaje = "d del Empleado no Coincide";
+                _response.IsExitoso = false;
+                _response.StatusCode = HttpStatusCode.BadRequest;
+                return BadRequest(_response);
             }
 
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                //return BadRequest(ModelState);
+                _response.Mensaje = "Informacion Incorrecta";
+                _response.IsExitoso = false;
+                _response.StatusCode = HttpStatusCode.BadRequest;
+                return BadRequest(_response);
             }
 
             var empleadoExiste = await _unidadTrabajo.Empleado.ObtenerPrimero(
@@ -146,15 +185,22 @@ namespace API.Controllers
 
             if (empleadoExiste != null)
             {
-                ModelState.AddModelError("NombreDuplicado", "Nombre del empleado ya Existe!");
-                return BadRequest(ModelState);
+                // ModelState.AddModelError("NombreDuplicado", "Nombre del empleado ya Existe!");
+                // return BadRequest(ModelState);
+                _response.Mensaje = "Nombre del empleado ya Existe!";
+                _response.IsExitoso = false;
+                _response.StatusCode = HttpStatusCode.BadRequest;
+                return BadRequest(_response);
             }
 
             Empleado empleado = _mapper.Map<Empleado>(empleadoDto);
 
             _unidadTrabajo.Empleado.Actualizar(empleado);
             await _unidadTrabajo.Guardar();
-            return Ok(empleado);
+            _response.Mensaje = "Empleado guardado con Exito";
+            _response.IsExitoso = true;
+            _response.StatusCode = HttpStatusCode.NoContent;
+            return Ok(_response);
         }
 
         [HttpDelete("{id}")]
@@ -166,11 +212,18 @@ namespace API.Controllers
             var empleado = await _unidadTrabajo.Empleado.ObtenerPrimero(e => e.Id == id);
             if (empleado == null)
             {
-                return NotFound();
+                // return NotFound();
+                _response.Mensaje = "Empleado No existe";
+                _response.IsExitoso = false;
+                _response.StatusCode = HttpStatusCode.NotFound;
+                return NotFound(_response);
             }
             _unidadTrabajo.Empleado.Remover(empleado);
             await _unidadTrabajo.Guardar();
-            return NoContent();
+            _response.Mensaje = "Empleado eliminado Exitosamente";
+            _response.IsExitoso = true;
+            _response.StatusCode = HttpStatusCode.NoContent;
+            return Ok(_response);
         }
 
 

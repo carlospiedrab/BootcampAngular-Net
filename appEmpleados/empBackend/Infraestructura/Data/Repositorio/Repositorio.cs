@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using Core.Especificaciones;
 using Infraestructura.Data.Repositorio.IRepositio;
 using Microsoft.EntityFrameworkCore;
 
@@ -60,6 +61,31 @@ namespace Infraestructura.Data.Repositorio
             }
             return await query.ToListAsync();
 
+        }
+
+        public async Task<PagedList<T>> ObtenerTodosPaginado(Parametros parametros,
+         Expression<Func<T, bool>> filtro = null, Func<IQueryable<T>,
+         IOrderedQueryable<T>> orderBy = null, string incluirPropiedades = null)
+        {
+            IQueryable<T> query = dbSet;
+            if (filtro != null)
+            {
+                query = query.Where(filtro);
+            }
+            if (incluirPropiedades != null)   // "Compania, Cargo, Departamento"
+            {
+                foreach (var ip in incluirPropiedades.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(ip);
+                }
+            }
+            if (orderBy != null)
+            {
+                await orderBy(query).ToListAsync();
+                return PagedList<T>.ToPagedList(query, parametros.PageNumber, parametros.PageSize);
+            }
+
+            return PagedList<T>.ToPagedList(query, parametros.PageNumber, parametros.PageSize);
         }
 
         public void Remover(T entidad)
